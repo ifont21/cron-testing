@@ -1,37 +1,38 @@
 const cron = require('cron');
+const { audiencesState } = require('./data');
 
-const audiences = [{
-  name: 'audiences_one',
-  status: 'Ready',
-  scheduled: '2018-09-06'
-},
-{
-  name: 'audiences_two',
-  status: 'InProgress'
-}];
-
-
-const processAudience = (...args) => {
-  setTimeout(() => {
-    audiences.push({
-      name: args[0],
-      status: args[1],
-      scheduled: args[2]
-    });
-  }, args[3]);
-}
-
-processAudience('audience_three', 'Ready', '2018-09-06', 15000);
-processAudience('audience_four', 'Ready', '2018-09-06', 30000);
-processAudience('audience_five', 'InProgress', '', 10000);
-processAudience('audience_six', 'Ready', '2018-09-06', 40000);
-
-const fetchAudiences = () => {
-  return audiences.filter(x => (x.status !== 'InProgress' && x.scheduled));
+const fetchAudiences = (date) => {
+  return audiencesState.filter(x => (x.status !== 'InProgress' && x.activationScheduled));
 }
 
 const activateAudiences = (audience) => {
   audience.status = 'InProgress';
+  audience.activationScheduled.next_run_date = calculateNextRunDate(audience.activationScheduled.scheduled, Date.now());
+  setTimeout(() => {
+    audience.status = 'Ready';
+  }, 24000);
+}
+
+const getDateValues = (notation) => {
+  let values = {};
+  let [value, suffix] = notation.split('-');
+  switch (value) {
+    case 'ww':
+      if (suffix) {
+        values.days = 7 * Number(suffix);
+      } else {
+        values.days = 7;
+      }
+      break;
+    case 'MM':
+      break;
+    case 'yy':
+      break;
+    default:
+      break;
+  }
+
+  return values;
 }
 
 const getDate = (string) => {
@@ -44,18 +45,34 @@ const getDate = (string) => {
   return `${year}-${month}-${day}`;
 }
 
+const calculateNextRunDate = (schedule, startDate) => {
+  let nextRunDate;
+  if (schedule.dayOfWeek) {
+    // TODO: calculate with this day of week
+  } else {
+    const values = getDateValues(schedule.interval);
+    nextRunDate = new Date(startDate);
+    nextRunDate.setDate(today.getDate() + values.days);
+  }
+  return nextRunDate;
+}
+
+
 let i = 0;
-const job = new cron.CronJob('*/10 * * * * *', function () {
+const today = new Date();
+const job = new cron.CronJob('*/1 * * * * *', function () {
+  today.setHours(today.getHours() + 1);
+  console.log('*****************************************************************');
   console.log(`${++i} hour running...`);
-  const date = new Date();
+  console.log(`at this Moment ${today}`);
+  console.log('*****************************************************************');
   console.log(`fetching Audiences ...`);
   const pendindAudiences = fetchAudiences();
-  console.log(pendindAudiences);
-  const formatDate = getDate(date.toDateString());
+  const formatDate = getDate(today.toDateString());
   pendindAudiences.forEach(element => {
-    console.log(`Scheduled date ${element.scheduled}`);
-    console.log(`Today date ${formatDate}`);
-    if (element.scheduled === formatDate) {
+    console.log(`Scheduled date ********* ${element.activationScheduled.next_run_date}`);
+    console.log(`Today date *********** ${formatDate}`);
+    if (getDate(element.activationScheduled.next_run_date) === formatDate) {
       console.log(`Activating Audience ...`);
       activateAudiences(element);
     } else {
@@ -63,8 +80,10 @@ const job = new cron.CronJob('*/10 * * * * *', function () {
     }
   });
   console.log(`********************** End Activation ******************************`);
-  console.log(`Audiences Array`);
-  console.log(audiences);
+  console.log(`Audiences In Progress`);
+  console.log(audiencesState.map(x => ({ name: x.name, status: x.status })).filter(x => x.status === 'InProgress'));
+  console.log(`Audiences Ready`);
+  console.log(audiencesState.map(x => ({ name: x.name, status: x.status })).filter(x => x.status === 'Ready'));
   console.log(`*******************************************************************`);
   console.log(`********************** End Iteration ******************************`);
   console.log(`*******************************************************************`);
