@@ -1,0 +1,10 @@
+version: '3.4'
+services:
+ cron:
+    build: .
+    env_file:
+          - .env
+    entrypoint: ["npm", "run" ,"debug"]
+    restart: always
+volumes:
+  db_data:
