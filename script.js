@@ -36,8 +36,10 @@ const activateAudiences = (audience) => {
 
 const getDate = (string) => {
   const date = new Date(string);
-  const month = (date.getMonth() + 1).toString().length < 2 ? '0' + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
-  const day = date.getDate().toString().length < 2 ? '0' + date.getDate().toString() : date.getDate().toString();
+  const stringMonth = (date.getMonth() + 1).toString();
+  const month = stringMonth.length < 2 ? '0' + stringMonth : stringMonth;
+  const stringDay = date.getDate().toString();
+  const day = stringDay.length < 2 ? '0' + stringDay : stringDay;
   const year = date.getFullYear();
   return `${year}-${month}-${day}`;
 }
