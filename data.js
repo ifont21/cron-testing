@@ -3,12 +3,9 @@ const audiencesState = [{
   name: 'audiences_one',
   status: 'Ready',
   activationScheduled: {
-    created_at: 'Thu Sep 07 2018 14:00:00 GMT+0000 (UTC)',
-    next_run_date: 'Thu Sep 14 2018 14:00:00 GMT+0000 (UTC)',
-    scheduled: {
-      interval: 'ww',// ww->weekly, MM->monthly, yy->yearly,
-      dayOfWeek: null //0-6
-    }
+    created_at: 'Thu Sep 10 2018 14:00:00 GMT+0000 (UTC)',
+    next_run_date: 'Thu Sep 17 2018 14:00:00 GMT+0000 (UTC)',
+    interval: 'ww'// ww->weekly, MM->monthly, yy->yearly,
   }
 },
 {
@@ -37,12 +34,9 @@ addingAudience(
     name: 'audiences_three',
     status: 'Ready',
     activationScheduled: {
-      created_at: 'Thu Sep 07 2018 14:00:00 GMT+0000 (UTC)',
-      next_run_date: 'Thu Sep 14 2018 14:00:00 GMT+0000 (UTC)',
-      scheduled: {
-        interval: 'ww-2',
-        dayOfWeek: null
-      }
+      created_at: 'Thu Sep 10 2018 14:00:00 GMT+0000 (UTC)',
+      next_run_date: 'Thu Sep 17 2018 14:00:00 GMT+0000 (UTC)',
+      interval: 'ww-2'
     }
   }, 15000);
 
@@ -52,12 +46,9 @@ addingAudience(
     name: 'audiences_four',
     status: 'Ready',
     activationScheduled: {
-      created_at: 'Thu Sep 07 2018 14:00:00 GMT+0000 (UTC)',
-      next_run_date: 'Thu Sep 14 2018 14:00:00 GMT+0000 (UTC)',
-      scheduled: {
-        interval: 'ww',
-        dayOfWeek: null
-      }
+      created_at: 'Thu Sep 10 2018 14:00:00 GMT+0000 (UTC)',
+      next_run_date: 'Thu Sep 17 2018 14:00:00 GMT+0000 (UTC)',
+      interval: 'ww'
     }
   }, 25000);
 
@@ -67,12 +58,9 @@ addingAudience(
     name: 'audiences_four',
     status: 'Ready',
     activationScheduled: {
-      created_at: 'Thu Sep 07 2018 14:00:00 GMT+0000 (UTC)',
-      next_run_date: 'Thu Sep 14 2018 14:00:00 GMT+0000 (UTC)',
-      scheduled: {
-        interval: 'ww',
-        dayOfWeek: null
-      }
+      created_at: 'Thu Sep 10 2018 14:00:00 GMT+0000 (UTC)',
+      next_run_date: 'Thu Sep 17 2018 14:00:00 GMT+0000 (UTC)',
+      interval: 'ww'
     }
   }, 20000);
 
