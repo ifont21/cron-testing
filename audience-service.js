@@ -29,23 +29,18 @@ class AudienceService {
 
   getDaysByInterval(notation) {
     let values = {};
-    let [value, suffix] = notation.split('-');
-    switch (value) {
-      case 'ww':
-        if (suffix) {
-          values.days = 7 * Number(suffix);
-        } else {
-          values.days = 7;
-        }
+    switch (notation) {
+      case 'WEEKLY':
+        values.days = 7;
         break;
-      case 'MM':
+      case 'BI-WEEKLY':
+        values.days = 7 * 2;
         break;
-      case 'yy':
+      case 'MONTHLY':
         break;
       default:
         break;
     }
-
     return values;
   }
 

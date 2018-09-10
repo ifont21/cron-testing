@@ -2,9 +2,10 @@ version: '3.4'
 services:
  cron:
     build: .
+    volumes:
+          - ".:/usr/src/scheduler"
+          - "/usr/src/scheduler/node_modules"
     env_file:
           - .env
     entrypoint: ["npm", "run" ,"debug"]
     restart: always
-volumes:
-  db_data:

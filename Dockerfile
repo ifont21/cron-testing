@@ -1,6 +1,6 @@
 FROM node:8.9.4
 
-WORKDIR .
+WORKDIR /usr/src/scheduler
 
 RUN npm config set cache /usr/src/cache
 

@@ -5,7 +5,7 @@ const audiencesState = [{
   activationScheduled: {
     created_at: 'Thu Sep 10 2018 14:00:00 GMT+0000 (UTC)',
     next_run_date: 'Thu Sep 17 2018 14:00:00 GMT+0000 (UTC)',
-    interval: 'ww'// ww->weekly, MM->monthly, yy->yearly,
+    interval: 'WEEKLY'
   }
 },
 {
@@ -36,7 +36,7 @@ addingAudience(
     activationScheduled: {
       created_at: 'Thu Sep 10 2018 14:00:00 GMT+0000 (UTC)',
       next_run_date: 'Thu Sep 17 2018 14:00:00 GMT+0000 (UTC)',
-      interval: 'ww-2'
+      interval: 'BI-WEEKLY'
     }
   }, 15000);
 
@@ -48,7 +48,7 @@ addingAudience(
     activationScheduled: {
       created_at: 'Thu Sep 10 2018 14:00:00 GMT+0000 (UTC)',
       next_run_date: 'Thu Sep 17 2018 14:00:00 GMT+0000 (UTC)',
-      interval: 'ww'
+      interval: 'WEEKLY'
     }
   }, 25000);
 
@@ -60,7 +60,7 @@ addingAudience(
     activationScheduled: {
       created_at: 'Thu Sep 10 2018 14:00:00 GMT+0000 (UTC)',
       next_run_date: 'Thu Sep 17 2018 14:00:00 GMT+0000 (UTC)',
-      interval: 'ww'
+      interval: 'WEEKLY'
     }
   }, 20000);
 
